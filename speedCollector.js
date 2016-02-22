@@ -1,10 +1,11 @@
 function getMarkerColor() {
-  var downloadSpeed = document.getElementsByClassName("share-speed share-download")[0];
-  downloadSpeed = downloadSpeed.getElementsByTagName("p")[0].innerHTML;
-  downloadSpeed = downloadSpeed.replace("<span>", "").replace("</span>", "").replace("Mb/s", "");
+  var downloadSpeed = document.querySelector('share-speed share-download p')
+    .innerText
+    .replace("Mb/s", '');
+    
   downloadSpeed = Number(downloadSpeed);
   var markerColor;
-  if (0 <= downloadSpeed < 5) {
+  if (0 <= downloadSpeed && downloadSpeed < 5) {
     markerColor = "#C24740";
   } else if (10 > downloadSpeed >= 5) {
     markerColor = "#F3AE1A";
@@ -14,14 +15,14 @@ function getMarkerColor() {
     alert(`cannot get marker color`);
   }
   alert(`your marker color is ${markerColor}`);
-  var url = document.URL;
-  var createGeojson = `
-  "下载速度": "${downloadSpeed} Mbps",
-  "参考价格": "yourPrice",
-  "Speedtest 链接": "${url}",
-  "评论 (@yourname)": "Your comment",
-  "marker-color": "${markerColor}",
-  "marker-symbol": "cafe"`
-  return(createGeojson);
+
+  return JSON.stringify({
+    "下载速度": downloadSpeed + " Mbps",
+    "参考价格": "yourPrice",
+    "Speedtest 链接": document.URL,
+    "评论 (@yourname)": "Your comment",
+    "marker-color": markerColor,
+    "marker-symbol": "cafe"
+  });
 }
 getMarkerColor();
