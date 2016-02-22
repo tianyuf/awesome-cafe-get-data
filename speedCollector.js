@@ -1,9 +1,7 @@
 function getMarkerColor() {
   var downloadSpeed = document.getElementsByClassName("share-speed share-download")[0];
   downloadSpeed = downloadSpeed.getElementsByTagName("p")[0].innerHTML;
-  downloadSpeed = downloadSpeed.replace("<span>", "");
-  downloadSpeed = downloadSpeed.replace("</span>", "");
-  downloadSpeed = downloadSpeed.replace("Mb/s", "");
+  downloadSpeed = downloadSpeed.replace("<span>", "").replace("</span>", "").replace("Mb/s", "");
   downloadSpeed = Number(downloadSpeed);
   var markerColor;
   if (0 <= downloadSpeed < 5) {
@@ -26,3 +24,4 @@ function getMarkerColor() {
   "marker-symbol": "cafe"`
   return(createGeojson);
 }
+getMarkerColor();
